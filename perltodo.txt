@@ -1,0 +1,615 @@
+PERLTODO(1)           User Contributed Perl Documentation          PERLTODO(1)
+
+
+
+NNAAMMEE
+       perltodo - Perl TO-DO List
+
+DDEESSCCRRIIPPTTIIOONN
+       This is a list of wishes for Perl. The tasks we think are smaller or
+       easier are listed first. Anyone is welcome to work on any of these, but
+       it’s a good idea to first contact _p_e_r_l_5_-_p_o_r_t_e_r_s_@_p_e_r_l_._o_r_g to avoid
+       duplication of effort. By all means contact a pumpking privately first
+       if you prefer.
+
+       Whilst patches to make the list shorter are most welcome, ideas to add
+       to the list are also encouraged. Check the perl5-porters archives for
+       past ideas, and any discussion about them. One set of archives may be
+       found at:
+
+           http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/
+
+       What can we offer you in return? Fame, fortune, and everlasting glory?
+       Maybe not, but if your patch is incorporated, then we’ll add your name
+       to the _A_U_T_H_O_R_S file, which ships in the official distribution. How many
+       other programming languages offer you 1 line of immortality?
+
+TThhee rrooaaddmmaapp ttoo 55..1100
+       The roadmap to 5.10 envisages feature based releases, as various items
+       in this TODO are completed.
+
+       NNeeeeddeedd ffoorr aa 55..99..44 rreelleeaassee
+
+
+       ·   Review assertions. Review syntax to combine assertions. Assertions
+           could take advantage of the lexical pragmas work. "What hooks would
+           assertions need?"
+
+       NNeeeeddeedd ffoorr aa 55..99..55 rreelleeaassee
+
+
+       * Implement "_ prototype character"
+       * Implement "state variables"
+
+       NNeeeeddeedd ffoorr aa 55..99..66 rreelleeaassee
+
+       Stabilisation. If all goes well, this will be the equivalent of a
+       5.10-beta.
+
+TTaasskkss tthhaatt oonnllyy nneeeedd PPeerrll kknnoowwlleeddggee
+       ccoommmmoonn tteesstt ccooddee ffoorr ttiimmeedd bbaaiill oouutt
+
+       Write portable self destruct code for tests to stop them burning CPU in
+       infinite loops. This needs to avoid using alarm, as some of the tests
+       are testing alarm/sleep or timers.
+
+       PPOODD -->> HHTTMMLL ccoonnvveerrssiioonn iinn tthhee ccoorree ssttiillll ssuucckkss
+
+       Which is crazy given just how simple POD purports to be, and how simple
+       HTML can be. It’s not actually _a_s simple as it sounds, particularly
+       with the flexibility POD allows for "=item", but it would be good to
+       improve the visual appeal of the HTML generated, and to avoid it having
+       any validation errors. See also "make HTML install work", as the layout
+       of installation tree is needed to improve the cross-linking.
+
+       The addition of "Pod::Simple" and its related modules may make this
+       task easier to complete.
+
+       PPaarraalllleell tteessttiinngg
+
+       The core regression test suite is getting ever more comprehensive,
+       which has the side effect that it takes longer to run. This isn’t so
+       good. Investigate whether it would be feasible to give the harness
+       script the ooppttiioonn of running sets of tests in parallel. This would be
+       useful for tests in _t_/_o_p_/_*_._t and _t_/_u_n_i_/_*_._t and maybe some sets of tests
+       in _l_i_b_/.
+
+       Questions to answer
+
+       1   How does screen layout work when you’re running more than one test?
+
+       2   How does the caller of test specify how many tests to run in paral-
+           lel?
+
+       3   How do setup/teardown tests identify themselves?
+
+       Pugs already does parallel testing - can their approach be re-used?
+
+       MMaakkee SScchhwweerrnn ppoooorreerr
+
+       We should have for everything. When all the core’s modules are tested,
+       Schwern has promised to donate to $500 to TPF. We may need volunteers
+       to hold him upside down and shake vigorously in order to actually
+       extract the cash.
+
+       See _t_/_l_i_b_/_1___c_o_m_p_i_l_e_._t for the 3 remaining modules that need tests.
+
+       IImmpprroovvee tthhee ccoovveerraaggee ooff tthhee ccoorree tteessttss
+
+       Use Devel::Cover to ascertain the core’s test coverage, then add tests
+       that are currently missing.
+
+       tteesstt BB
+
+       A full test suite for the B module would be nice.
+
+       AA ddeecceenntt bbeenncchhmmaarrkk
+
+       "perlbench" seems impervious to any recent changes made to the perl
+       core. It would be useful to have a reasonable general benchmarking
+       suite that roughly represented what current perl programs do, and mea-
+       surably reported whether tweaks to the core improve, degrade or don’t
+       really affect performance, to guide people attempting to optimise the
+       guts of perl. Gisle would welcome new tests for perlbench.
+
+       ffiixx ttaaiinnttiinngg bbuuggss
+
+       Fix the bugs revealed by running the test suite with the "-t" switch
+       (via "make test.taintwarn").
+
+       DDuuaall lliiffee eevveerryytthhiinngg
+
+       As part of the "dists" plan, anything that doesn’t belong in the small-
+       est perl distribution needs to be dual lifed. Anything else can be too.
+       Figure out what changes would be needed to package that module and its
+       tests up for CPAN, and do so. Test it with older perl releases, and fix
+       the problems you find.
+
+       IImmpprroovviinngg ""tthhrreeaaddss::::sshhaarreedd""
+
+       Investigate whether "threads::shared" could share aggregates properly
+       with only Perl level changes to shared.pm
+
+       PPOOSSIIXX mmeemmoorryy ffoooottpprriinntt
+
+       Ilya observed that use POSIX; eats memory like there’s no tomorrow, and
+       at various times worked to cut it down. There is probably still fat to
+       cut out - for example POSIX passes Exporter some very memory hungry
+       data structures.
+
+TTaasskkss tthhaatt nneeeedd aa lliittttllee ssyyssaaddmmiinn--ttyyppee kknnoowwlleeddggee
+       Or if you prefer, tasks that you would learn from, and broaden your
+       skills base...
+
+       RReellooccaattaabbllee ppeerrll
+
+       The C level patches needed to create a relocatable perl binary are
+       done, as is the work on _C_o_n_f_i_g_._p_m. All that’s left to do is the "Con-
+       figure" tweaking to let people specify how they want to do the install.
+
+       mmaakkee HHTTMMLL iinnssttaallll wwoorrkk
+
+       There is an "installhtml" target in the Makefile. It’s marked as
+       "experimental". It would be good to get this tested, make it work reli-
+       ably, and remove the "experimental" tag. This would include
+
+       1   Checking that cross linking between various parts of the documenta-
+           tion works.  In particular that links work between the modules
+           (files with POD in _l_i_b_/) and the core documentation (files in _p_o_d_/)
+
+       2   Work out how to split "perlfunc" into chunks, preferably one per
+           function group, preferably with general case code that could be
+           used elsewhere.  Challenges here are correctly identifying the
+           groups of functions that go together, and making the right named
+           external cross-links point to the right page. Things to be aware of
+           are "-X", groups such as "getpwnam" to "endservent", two or more
+           "=items" giving the different parameter lists, such as
+
+               =item substr EXPR,OFFSET,LENGTH,REPLACEMENT
+
+               =item substr EXPR,OFFSET,LENGTH
+
+               =item substr EXPR,OFFSET
+
+           and different parameter lists having different meanings. (eg
+           "select")
+
+       ccoommpprreesssseedd mmaann ppaaggeess
+
+       Be able to install them. This would probably need a configure test to
+       see how the system does compressed man pages (same directory/different
+       directory?  same filename/different filename), as well as tweaking the
+       _i_n_s_t_a_l_l_m_a_n script to compress as necessary.
+
+       AAdddd aa ccooddee ccoovveerraaggee ttaarrggeett ttoo tthhee MMaakkeeffiillee
+
+       Make it easy for anyone to run Devel::Cover on the core’s tests. The
+       steps to do this manually are roughly
+
+       ·   do a normal "Configure", but include Devel::Cover as a module to
+           install (see _I_N_S_T_A_L_L for how to do this)
+
+       ·
+               make perl
+
+       ·
+               cd t; HARNESS_PERL_SWITCHES=-MDevel::Cover ./perl -I../lib harness
+
+       ·   Process the resulting Devel::Cover database
+
+       This just give you the coverage of the _._p_ms. To also get the C level
+       coverage you need to
+
+       ·   Additionally tell "Configure" to use the appropriate C compiler
+           flags for "gcov"
+
+       ·
+               make perl.gcov
+
+           (instead of "make perl")
+
+       ·   After running the tests run "gcov" to generate all the _._g_c_o_v files.
+           (Including down in the subdirectories of _e_x_t_/
+
+       ·   (From the top level perl directory) run "gcov2perl" on all the
+           ".gcov" files to get their stats into the cover_db directory.
+
+       ·   Then process the Devel::Cover database
+
+       It would be good to add a single switch to "Configure" to specify that
+       you wanted to perform perl level coverage, and another to specify C
+       level coverage, and have "Configure" and the _M_a_k_e_f_i_l_e do all the right
+       things automatically.
+
+       MMaakkee CCoonnffiigg..ppmm ccooppee wwiitthh ddiiffffeerreenncceess bbeettwweeeenn bbuuiilldd aanndd iinnssttaalllleedd ppeerrll
+
+       Quite often vendors ship a perl binary compiled with their (pay-for)
+       compilers.  People install a free compiler, such as gcc. To work out
+       how to build extensions, Perl interrogates %Config, so in this situa-
+       tion %Config describes compilers that aren’t there, and extension
+       building fails. This forces people into choosing between re-compiling
+       perl themselves using the compiler they have, or only using modules
+       that the vendor ships.
+
+       It would be good to find a way teach "Config.pm" about the installation
+       setup, possibly involving probing at install time or later, so that the
+       %Config in a binary distribution better describes the installed
+       machine, when the installed machine differs from the build machine in
+       some significant way.
+
+       mmaakkee ppaarraalllleell bbuuiillddss wwoorrkk
+
+       Currently parallel builds (such as "make -j3") don’t work reliably. We
+       believe that this is due to incomplete dependency specification in the
+       _M_a_k_e_f_i_l_e.  It would be good if someone were able to track down the
+       causes of these problems, so that parallel builds worked properly.
+
+       lliinnkkeerr ssppeecciiffiiccaattiioonn ffiilleess
+
+       Some platforms mandate that you provide a list of a shared library’s
+       external symbols to the linker, so the core already has the infrastruc-
+       ture in place to do this for generating shared perl libraries. My
+       understanding is that the GNU toolchain can accept an optional linker
+       specification file, and restrict visibility just to symbols declared in
+       that file. It would be good to extend _m_a_k_e_d_e_f_._p_l to support this for-
+       mat, and to provide a means within "Configure" to enable it. This would
+       allow Unix users to test that the export list is correct, and to build
+       a perl that does not pollute the global namespace with private symbols.
+
+TTaasskkss tthhaatt nneeeedd aa lliittttllee CC kknnoowwlleeddggee
+       These tasks would need a little C knowledge, but don’t need any spe-
+       cific background or experience with XS, or how the Perl interpreter
+       works
+
+       MMaakkee iitt cclleeaarr ffrroomm --vv iiff tthhiiss iiss tthhee eexxaacctt ooffffiicciiaall rreelleeaassee
+
+       Currently perl from "p4"/"rsync" ships with a _p_a_t_c_h_l_e_v_e_l_._h file that
+       usually defines one local patch, of the form "MAINT12345" or "RC1". The
+       output of perl -v doesn’t report that a perl isn’t an official release,
+       and this information can get lost in bugs reports. Because of this, the
+       minor version isn’t bumped up until RC time, to minimise the possibil-
+       ity of versions of perl escaping that believe themselves to be newer
+       than they actually are.
+
+       It would be useful to find an elegant way to have the "this is an
+       interim maintenance release" or "this is a release candidate" in the
+       terse -v output, and have it so that it’s easy for the pumpking to
+       remove this just as the release tarball is rolled up. This way the ver-
+       sion pulled out of rsync would always say "I’m a development release"
+       and it would be safe to bump the reported minor version as soon as a
+       release ships, which would aid perl developers.
+
+       This task is really about thinking of an elegant way to arrange the C
+       source such that it’s trivial for the Pumpking to flag "this is an
+       official release" when making a tarball, yet leave the default source
+       saying "I’m not the official release".
+
+       TTiiddyy uupp gglloobbaall vvaarriiaabblleess
+
+       There’s a note in _i_n_t_r_p_v_a_r_._h
+
+         /* These two variables are needed to preserve 5.8.x bincompat because
+            we can’t change function prototypes of two exported functions.
+            Probably should be taken out of blead soon, and relevant prototypes
+            changed.  */
+
+       So doing this, and removing any of the unused variables still present
+       would be good.
+
+       OOrrddeerriinngg ooff ""gglloobbaall"" vvaarriiaabblleess..
+
+       _t_h_r_d_v_a_r_._h and _i_n_t_r_p_v_a_r_h define the "global" variables that need to be
+       per-thread under ithreads, where the variables are actually elements in
+       a structure. As C dictates, the variables must be laid out in order of
+       declaration. There is a comment "/* Important ones in the first cache
+       line (if alignment is done right) */" which implies that at some point
+       in the past the ordering was carefully chosen (at least in part). How-
+       ever, it’s clear that the ordering is less than perfect, as currently
+       there are things such as 7 "bool"s in a row, then something typically
+       requiring 4 byte alignment, and then an odd "bool" later on.  ("bool"s
+       are typically defined as "char"s). So it would be good for someone to
+       review the ordering of the variables, to see how much alignment padding
+       can be removed.
+
+       bbiinnccoommppaatt ffuunnccttiioonnss
+
+       There are lots of functions which are retained for binary compatibil-
+       ity.  Clean these up. Move them to mathom.c, and don’t compile for
+       blead?
+
+       aamm II hhoott oorr nnoott??
+
+       The idea of _p_p___h_o_t_._c is that it contains the _h_o_t ops, the ops that are
+       most commonly used. The idea is that by grouping them, their object
+       code will be adjacent in the executable, so they have a greater chance
+       of already being in the CPU cache (or swapped in) due to being near
+       another op already in use.
+
+       Except that it’s not clear if these really are the most commonly used
+       ops. So anyone feeling like exercising their skill with coverage and
+       profiling tools might want to determine what ops _r_e_a_l_l_y are the most
+       commonly used. And in turn suggest evictions and promotions to achieve
+       a better _p_p___h_o_t_._c.
+
+       eemmuullaattee tthhee ppeerr--tthhrreeaadd mmeemmoorryy ppooooll oonn UUnniixx
+
+       For Windows, ithreads allocates memory for each thread from a separate
+       pool, which it discards at thread exit. It also checks that memory is
+       _f_r_e_e_(_)d to the correct pool. Neither check is done on Unix, so code
+       developed there won’t be subject to such strictures, so can harbour
+       bugs that only show up when the code reaches Windows.
+
+       It would be good to be able to optionally emulate the Window pool sys-
+       tem on Unix, to let developers who only have access to Unix, or want to
+       use Unix-specific debugging tools, check for these problems. To do this
+       would involve figuring out how the "PerlMem_*" macros wrap "malloc()"
+       access, and providing a layer that records/checks the identity of the
+       thread making the call, and recording all the memory allocated by each
+       thread via this API so that it can be summarily _f_r_e_e_(_)d at thread exit.
+       One implementation idea would be to increase the size of allocation,
+       and store the "my_perl" pointer (to identify the thread) at the start,
+       along with pointers to make a linked list of blocks for this thread. To
+       avoid alignment problems it would be necessary to do something like
+
+         union memory_header_padded {
+           struct memory_header {
+             void *thread_id;   /* For my_perl */
+             void *next;        /* Pointer to next block for this thread */
+           } data;
+           long double padding; /* whatever type has maximal alignment constraint */
+         };
+
+       although "long double" might not be the only type to add to the padding
+       union.
+
+       rreedduuccee dduupplliiccaattiioonn iinn ssvv__sseettssvv__ffllaaggss
+
+       "Perl_sv_setsv_flags" has a comment "/* There's a lot of redundancy
+       below but we're going for speed here */"
+
+       Whilst this was true 10 years ago, the growing disparity between RAM
+       and CPU speeds mean that the trade offs have changed. In addition, the
+       duplicate code adds to the maintenance burden. It would be good to see
+       how much of the redundancy can be pruned, particular in the less common
+       paths. (Profiling tools at the ready...). For example, why does the
+       test for "Can’t redefine active sort subroutine" need to occur in two
+       places?
+
+TTaasskkss tthhaatt nneeeedd aa kknnoowwlleeddggee ooff XXSS
+       These tasks would need C knowledge, and roughly the level of knowledge
+       of the perl API that comes from writing modules that use XS to inter-
+       face to C.
+
+       IIPPvv66
+
+       Clean this up. Check everything in core works
+
+       sshhrriinnkk ""GGVV""s, "CV"s
+
+       By removing unused elements and careful re-ordering, the structures for
+       "AV"s and "HV"s have recently been shrunk considerably. It’s probable
+       that the same approach would find savings in "GV"s and "CV"s, if not
+       all the other larger-than-"PVMG" types.
+
+       mmeerrggee PPeerrll__ssvv__22[[iinnppuu]]vv
+
+       There’s a lot of code shared between "Perl_sv_2iv_flags",
+       "Perl_sv_2uv_flags", "Perl_sv_2nv", and "Perl_sv_2pv_flags". It would
+       be interesting to see if some of it can be merged into common shared
+       static functions. In particular, "Perl_sv_2uv_flags" started out as a
+       cut&paste from "Perl_sv_2iv_flags" around 5.005_50 time, and it may be
+       possible to replace both with a single function that returns a value or
+       union which is split out by the macros in _s_v_._h
+
+       UUTTFF88 ccaacchhiinngg ccooddee
+
+       The string position/offset cache is not optional. It should be.
+
+       IImmpplliicciitt LLaattiinn 11 ==>> UUnniiccooddee ttrraannssllaattiioonn
+
+       Conversions from byte strings to UTF-8 currently map high bit charac-
+       ters to Unicode without translation (or, depending on how you look at
+       it, by implicitly assuming that the byte strings are in Latin-1). As
+       perl assumes the C locale by default, upgrading a string to UTF-8 may
+       change the meaning of its contents regarding character classes, case
+       mapping, etc.  This should probably emit a warning (at least).
+
+       This task is incremental - even a little bit of work on it will help.
+
+       aauuttoovviivviiffiiccaattiioonn
+
+       Make all autovivification consistent w.r.t LVALUE/RVALUE and strict/no
+       strict;
+
+       This task is incremental - even a little bit of work on it will help.
+
+       UUnniiccooddee iinn FFiilleennaammeess
+
+       chdir, chmod, chown, chroot, exec, glob, link, lstat, mkdir, open,
+       opendir, qx, readdir, readlink, rename, rmdir, stat, symlink, sysopen,
+       system, truncate, unlink, utime, -X.  All these could potentially
+       accept Unicode filenames either as input or output (and in the case of
+       system and qx Unicode in general, as input or output to/from the
+       shell).  Whether a filesystem - an operating system pair understands
+       Unicode in filenames varies.
+
+       Known combinations that have some level of understanding include
+       Microsoft NTFS, Apple HFS+ (In Mac OS 9 and X) and Apple UFS (in Mac OS
+       X), NFS v4 is rumored to be Unicode, and of course Plan 9.  How to cre-
+       ate Unicode filenames, what forms of Unicode are accepted and used
+       (UCS-2, UTF-16, UTF-8), what (if any) is the normalization form used,
+       and so on, varies.  Finding the right level of interfacing to Perl
+       requires some thought.  Remember that an OS does not implicate a
+       filesystem.
+
+       (The Windows -C command flag "wide API support" has been at least tem-
+       porarily retired in 5.8.1, and the -C has been repurposed, see perl-
+       run.)
+
+       UUnniiccooddee iinn %%EENNVV
+
+       Currently the %ENV entries are always byte strings.
+
+       uussee lleessss ’’mmeemmoorryy’’
+
+       Investigate trade offs to switch out perl’s choices on memory usage.
+       Particularly perl should be able to give memory back.
+
+       This task is incremental - even a little bit of work on it will help.
+
+       RRee--iimmpplleemmeenntt ""::uunniiqquuee"" iinn aa wwaayy tthhaatt iiss aaccttuuaallllyy tthhrreeaadd--ssaaffee
+
+       The old implementation made bad assumptions on several levels. A good
+       90% solution might be just to make ":unique" work to share the string
+       buffer of SvPVs. That way large constant strings can be shared between
+       ithreads, such as the configuration information in _C_o_n_f_i_g.
+
+       MMaakkee ttaaiinnttiinngg ccoonnssiisstteenntt
+
+       Tainting would be easier to use if it didn’t take documented shortcuts
+       and allow taint to "leak" everywhere within an expression.
+
+       rreeaaddppiippee((LLIISSTT))
+
+       _s_y_s_t_e_m_(_) accepts a LIST syntax (and a PROGRAM LIST syntax) to avoid
+       running a shell. _r_e_a_d_p_i_p_e_(_) (the function behind qx//) could be simi-
+       larly extended.
+
+TTaasskkss tthhaatt nneeeedd aa kknnoowwlleeddggee ooff tthhee iinntteerrpprreetteerr
+       These tasks would need C knowledge, and knowledge of how the inter-
+       preter works, or a willingness to learn.
+
+       lleexxiiccaall pprraaggmmaass
+
+       Document the new support for lexical pragmas in 5.9.3 and how %^H
+       works.  Maybe "re", "encoding", maybe other pragmas could be made lexi-
+       cal.
+
+       AAttttaacchh//ddeettaacchh ddeebbuuggggeerr ffrroomm rruunnnniinngg pprrooggrraamm
+
+       The old perltodo notes "With "gdb", you can attach the debugger to a
+       running program if you pass the process ID. It would be good to do this
+       with the Perl debugger on a running Perl program, although I’m not sure
+       how it would be done." ssh and screen do this with named pipes in /tmp.
+       Maybe we can too.
+
+       CCoonnssttaanntt ffoollddiinngg
+
+       The peephole optimiser should trap errors during constant folding, and
+       give up on the folding, rather than bailing out at compile time.  It is
+       quite possible that the unfoldable constant is in unreachable code, eg
+       something akin to "$a = 0/0 if 0;"
+
+       LLVVAALLUUEE ffuunnccttiioonnss ffoorr lliissttss
+
+       The old perltodo notes that lvalue functions don’t work for list or
+       hash slices. This would be good to fix.
+
+       LLVVAALLUUEE ffuunnccttiioonnss iinn tthhee ddeebbuuggggeerr
+
+       The old perltodo notes that lvalue functions don’t work in the debug-
+       ger. This would be good to fix.
+
+       __ pprroottoottyyppee cchhaarraacctteerr
+
+       Study the possibility of adding a new prototype character, "_", meaning
+       "this argument defaults to $_".
+
+       ssttaattee vvaarriiaabblleess
+
+       "my $foo if 0;" is deprecated, and should be replaced with "state $x =
+       "initial value\n";" the syntax from Perl 6.
+
+       @@IINNCC ssoouurrccee ffiilltteerr ttoo FFiilltteerr::::SSiimmppllee
+
+       The second return value from a sub in @INC can be a source filter. This
+       isn’t documented. It should be changed to use Filter::Simple, tested
+       and documented.
+
+       rreeggeexxpp ooppttiimmiisseerr ooppttiioonnaall
+
+       The regexp optimiser is not optional. It should configurable to be, to
+       allow its performance to be measured, and its bugs to be easily demon-
+       strated.
+
+       UUNNIITTCCHHEECCKK
+
+       Introduce a new special block, UNITCHECK, which is run at the end of a
+       compilation unit (module, file, eval(STRING) block). This will corre-
+       spond to the Perl 6 CHECK. Perl 5’s CHECK cannot be changed or removed
+       because the O.pm/B.pm backend framework depends on it.
+
+       ooppttiioonnaall ooppttiimmiizzeerr
+
+       Make the peephole optimizer optional. Currently it performs two tasks
+       as it walks the optree - genuine peephole optimisations, and necessary
+       fixups of ops. It would be good to find an efficient way to switch out
+       the optimisations whilst keeping the fixups.
+
+       YYoouu WWAANNTT **hhooww** mmaannyy
+
+       Currently contexts are void, scalar and list. split has a special mech-
+       anism in place to pass in the number of return values wanted. It would
+       be useful to have a general mechanism for this, backwards compatible
+       and little speed hit.  This would allow proposals such as short cir-
+       cuiting sort to be implemented as a module on CPAN.
+
+       lleexxiiccaall aalliiaasseess
+
+       Allow lexical aliases (maybe via the syntax "my \$alias = \$foo".
+
+       eenntteerrssuubb XXSS vvss PPeerrll
+
+       At the moment pp_entersub is huge, and has code to deal with entering
+       both perl and XS subroutines. Subroutine implementations rarely change
+       between perl and XS at run time, so investigate using 2 ops to enter
+       subs (one for XS, one for perl) and swap between if a sub is redefined.
+
+       SSeellff ttiieess
+
+       self ties are currently illegal because they caused too many segfaults.
+       Maybe the causes of these could be tracked down and self-ties on all
+       types re- instated.
+
+       OOppttiimmiizzee aawwaayy @@__
+
+       The old perltodo notes "Look at the "reification" code in "av.c"".
+
+       WWhhaatt hhooookkss wwoouulldd aasssseerrttiioonnss nneeeedd??
+
+       Assertions are in the core, and work. However, assertions needed to be
+       added as a core patch, rather than an XS module in ext, or a CPAN mod-
+       ule, because the core has no hooks in the necessary places. It would be
+       useful to investigate what hooks would need to be added to make it pos-
+       sible to provide the full assertion support from a CPAN module, so that
+       we aren’t constraining the imagination of future CPAN authors.
+
+BBiigg pprroojjeeccttss
+       Tasks that will get your name mentioned in the description of the
+       "Highlights of 5.10"
+
+       mmaakkee iitthhrreeaaddss mmoorree rroobbuusstt
+
+       Generally make ithreads more robust. See also "iCOW"
+
+       This task is incremental - even a little bit of work on it will help,
+       and will be greatly appreciated.
+
+       iiCCOOWW
+
+       Sarathy and Arthur have a proposal for an improved Copy On Write which
+       specifically will be able to COW new ithreads. If this can be
+       implemented it would be a good thing.
+
+       ((??{{......}})) cclloossuurreess iinn rreeggeexxppss
+
+       Fix (or rewrite) the implementation of the "/(?{...})/" closures.
+
+       AA rree--eennttrraanntt rreeggeexxpp eennggiinnee
+
+       This will allow the use of a regex from inside (?{ }), (??{ }) and
+       (?(?{ })│) constructs.
+
+
+
+perl v5.8.8                       2013-03-27                       PERLTODO(1)

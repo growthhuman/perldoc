@@ -1,0 +1,22 @@
+PERLBOOK(1)           User Contributed Perl Documentation          PERLBOOK(1)
+
+
+
+NNAAMMEE
+       perlbook - Perl book information
+
+DDEESSCCRRIIPPTTIIOONN
+       The Camel Book, officially known as _P_r_o_g_r_a_m_m_i_n_g _P_e_r_l_, _T_h_i_r_d _E_d_i_t_i_o_n, by
+       Larry Wall et al, is the definitive reference work covering nearly all
+       of Perl.  You can order it and other Perl books from O’Reilly & Asso-
+       ciates, 1-800-998-9938.  Local/overseas is +1 707 829 0515.  If you can
+       locate an O’Reilly order form, you can also fax to +1 707 829 0104.  If
+       you’re web-connected, you can even mosey on over to
+       <http://www.oreilly.com/> for an online order form.
+
+       Other Perl books from various publishers and authors can be found
+       listed in perlfaq2 or on the web at <http://books.perl.org/>.
+
+
+
+perl v5.8.8                       2013-03-27                       PERLBOOK(1)
